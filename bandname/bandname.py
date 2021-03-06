@@ -12,6 +12,7 @@ class BandName(commands.Cog):
     """ Fun cog that randomly turns user messages into band names. """
 
     def __init__(self, red: Red):
+        print('Initializing BandName..........')
         self.bot = red
         configID = 901101100011101010110111001100001
         self.config = Config.get_conf(self, identifier=configID)
@@ -34,6 +35,7 @@ class BandName(commands.Cog):
         self.blacklist_regex = re.compile(r"^(.\!\w|[^\w])")
 
     async def on_message(self, message):
+        print('bandname bot triggered.')
         if message.author == self.bot.user:
             return
         if type(message.channel) != discord.TextChannel:
@@ -175,4 +177,4 @@ class BandName(commands.Cog):
                 else:
                     await ctx.send(f"{channel.name} was not found in the blacklist!")
             elif command == "list":
-                await ctx.send(f"Current blacklist for {ctx.guild.name}: {repr([ctx.guild.get_channel(x).name for x in channel_blacklist])}")
+                await ctx.send(f"Current blacklist for {ctx.guild.name}: {repr([ctx.guild.get_channel(x) for x in channel_blacklist])}")
